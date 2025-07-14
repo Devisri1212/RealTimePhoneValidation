@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Phone Validation Demo</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ——— Base layout ——— */
+    :root { --accent:#0066ff; }
+    *     { box-sizing:border-box; }
+
+    /* Gradient background (teal‑to‑indigo) */
+    body  {
+      margin:0;
+      font-family:"Inter",sans-serif;
+      background:linear-gradient(135deg,#14b8a6 0%,#2563eb 100%);
+      min-height:100vh;
+      display:flex; justify-content:center; align-items:flex-start;
+    }
+
+    /* Card with subtle white‑to‑light‑gray gradient */
+    main  {
+      width:100%; max-width:480px;
+      margin:160px 16px;
+      background:linear-gradient(180deg,#ffffff 0%,#f7f7f7 100%);
+      padding:32px 40px;
+      border-radius:12px;
+      box-shadow:0 6px 24px rgba(0,0,0,.15);
+    }
+
+    h2    { margin-top:0; text-align:center; color:#222; }
+
+    /* ——— Form ——— */
+    label { display:block; margin-top:1.4rem; font-weight:600; color:#333; }
+    input, select {
+      width:100%; margin-top:.4rem; padding:.6rem .8rem;
+      font:inherit; border:1px solid #ccc; border-radius:6px;
+      transition:border-color .2s;
+    }
+    input:focus, select:focus { outline:none; border-color:var(--accent); }
+
+    button {
+      margin-top:1.8rem; width:100%; padding:.7rem;
+      background:var(--accent); color:#fff; font-weight:600;
+      border:none; border-radius:6px; cursor:pointer;
+      transition:background .2s;
+    }
+    button:hover { background:#0057e0; }
+
+    /* ——— Output box ——— */
+    #output {
+      margin-top:2.2rem; padding:1.2rem;
+      background:#eef4ff; border-left:5px solid var(--accent);
+      border-radius:6px; min-height:3rem; white-space:pre-wrap;
+    }
+    .error   { background:#ffecec!important; border-left-color:#e12828!important; color:#e12828; }
+    .success { background:#e9fdf2!important; border-left-color:#12b76a!important; color:#0c8e4f; }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>Phone Number Validation</h2>
+
+    <form id="valForm">
+      <label>
+        Phone Number
+        <input type="text" id="number" placeholder="+447766733573" required />
+      </label>
+
+      <label>
+        Country Code (optional)
+        <select id="cc">
+          <option value="">— Select country (or leave blank) —</option>
+        </select>
+      </label>
+
+      <button type="submit">Validate</button>
+    </form>
+
+    <div id="output"></div>
+  </main>
+
+<!-- 👇— JavaScript unchanged —👇 -->
+<script>
+  const countrySelect=document.getElementById("cc");
+  const isoCountries={AF:"Afghanistan",AL:"Albania",DZ:"Algeria",AS:"American Samoa",AD:"Andorra",AO:"Angola",AI:"Anguilla",AQ:"Antarctica",AG:"Antigua & Barbuda",AR:"Argentina",AM:"Armenia",AW:"Aruba",AU:"Australia",AT:"Austria",AZ:"Azerbaijan",BS:"Bahamas",BH:"Bahrain",BD:"Bangladesh",BB:"Barbados",BY:"Belarus",BE:"Belgium",BZ:"Belize",BJ:"Benin",BM:"Bermuda",BT:"Bhutan",BO:"Bolivia",BA:"Bosnia & Herzegovina",BW:"Botswana",BR:"Brazil",IO:"British Indian Ocean Territory",VG:"British Virgin Islands",BN:"Brunei",BG:"Bulgaria",BF:"Burkina Faso",BI:"Burundi",KH:"Cambodia",CM:"Cameroon",CA:"Canada",CV:"Cape Verde",KY:"Cayman Islands",CF:"Central African Republic",TD:"Chad",CL:"Chile",CN:"China",CX:"Christmas Island",CC:"Cocos Islands",CO:"Colombia",KM:"Comoros",CD:"Congo - Kinshasa",CG:"Congo - Brazzaville",CK:"Cook Islands",CR:"Costa Rica",HR:"Croatia",CU:"Cuba",CY:"Cyprus",CZ:"Czechia",CI:"Côte d’Ivoire",DK:"Denmark",DJ:"Djibouti",DM:"Dominica",DO:"Dominican Republic",EC:"Ecuador",EG:"Egypt",SV:"El Salvador",GQ:"Equatorial Guinea",ER:"Eritrea",EE:"Estonia",SZ:"Eswatini",ET:"Ethiopia",FK:"Falkland Islands",FO:"Faroe Islands",FJ:"Fiji",FI:"Finland",FR:"France",GF:"French Guiana",PF:"French Polynesia",GA:"Gabon",GM:"Gambia",GE:"Georgia",DE:"Germany",GH:"Ghana",GI:"Gibraltar",GR:"Greece",GL:"Greenland",GD:"Grenada",GP:"Guadeloupe",GU:"Guam",GT:"Guatemala",GG:"Guernsey",GN:"Guinea",GW:"Guinea‑Bissau",GY:"Guyana",HT:"Haiti",HN:"Honduras",HK:"Hong Kong",HU:"Hungary",IS:"Iceland",IN:"India",ID:"Indonesia",IR:"Iran",IQ:"Iraq",IE:"Ireland",IM:"Isle of Man",IL:"Israel",IT:"Italy",JM:"Jamaica",JP:"Japan",JE:"Jersey",JO:"Jordan",KZ:"Kazakhstan",KE:"Kenya",KI:"Kiribati",XK:"Kosovo",KW:"Kuwait",KG:"Kyrgyzstan",LA:"Laos",LV:"Latvia",LB:"Lebanon",LS:"Lesotho",LR:"Liberia",LY:"Libya",LI:"Liechtenstein",LT:"Lithuania",LU:"Luxembourg",MO:"Macao",MG:"Madagascar",MW:"Malawi",MY:"Malaysia",MV:"Maldives",ML:"Mali",MT:"Malta",MH:"Marshall Islands",MQ:"Martinique",MR:"Mauritania",MU:"Mauritius",YT:"Mayotte",MX:"Mexico",FM:"Micronesia",MD:"Moldova",MC:"Monaco",MN:"Mongolia",ME:"Montenegro",MS:"Montserrat",MA:"Morocco",MZ:"Mozambique",MM:"Myanmar (Burma)",NA:"Namibia",NR:"Nauru",NP:"Nepal",NL:"Netherlands",NC:"New Caledonia",NZ:"New Zealand",NI:"Nicaragua",NE:"Niger",NG:"Nigeria",NU:"Niue",KP:"North Korea",MK:"North Macedonia",MP:"Northern Mariana Islands",NO:"Norway",OM:"Oman",PK:"Pakistan",PW:"Palau",PS:"Palestine",PA:"Panama",PG:"Papua New Guinea",PY:"Paraguay",PE:"Peru",PH:"Philippines",PN:"Pitcairn Islands",PL:"Poland",PT:"Portugal",PR:"Puerto Rico",QA:"Qatar",RE:"Réunion",RO:"Romania",RU:"Russia",RW:"Rwanda",BL:"Saint Barthélemy",SH:"St. Helena",KN:"St. Kitts & Nevis",LC:"St. Lucia",MF:"St. Martin",PM:"St. Pierre & Miquelon",VC:"St. Vincent & Grenadines",WS:"Samoa",SM:"San Marino",ST:"São Tomé & Príncipe",SA:"Saudi Arabia",SN:"Senegal",RS:"Serbia",SC:"Seychelles",SL:"Sierra Leone",SG:"Singapore",SX:"Sint Maarten",SK:"Slovakia",SI:"Slovenia",SB:"Solomon Islands",SO:"Somalia",ZA:"South Africa",KR:"South Korea",SS:"South Sudan",ES:"Spain",LK:"Sri Lanka",SD:"Sudan",SR:"Suriname",SE:"Sweden",CH:"Switzerland",SY:"Syria",TW:"Taiwan",TJ:"Tajikistan",TZ:"Tanzania",TH:"Thailand",TL:"Timor‑Leste",TG:"Togo",TK:"Tokelau",TO:"Tonga",TT:"Trinidad & Tobago",TN:"Tunisia",TR:"Turkey",TM:"Turkmenistan",TC:"Turks & Caicos Islands",TV:"Tuvalu",UG:"Uganda",UA:"Ukraine",AE:"United Arab Emirates",GB:"United Kingdom",US:"United States",UY:"Uruguay",UZ:"Uzbekistan",VU:"Vanuatu",VA:"Vatican City",VE:"Venezuela",VN:"Vietnam",VI:"US Virgin Islands",EH:"Western Sahara",YE:"Yemen",ZM:"Zambia",ZW:"Zimbabwe"};
+  for(const[code,name]of Object.entries(isoCountries)){const opt=document.createElement("option");opt.value=code;opt.textContent=`${name} (${code})`;countrySelect.appendChild(opt);}
+  const form=document.getElementById("valForm");const output=document.getElementById("output");
+  form.addEventListener("submit",async e=>{
+    e.preventDefault();output.className="";output.textContent="⏳ Validating...";
+    const body={number:document.getElementById("number").value.trim(),country_code:countrySelect.value||undefined};
+    try{
+      const res=await fetch("/validate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+      const data=await res.json();
+      if(res.ok&&data.status==="success"&&data.data?.status==="valid"){
+        const d=data.data;output.className="success";output.textContent=
+          `✅ Valid number\nCarrier: ${d.carrier||"N/A"}\nLocation: ${d.location||"N/A"}\nType: ${d.line_type}\nIntl: ${d.international_format}\nLocal: ${d.local_format}\nCountry: ${d.country_name} (${d.country_code})`;
+      }else{
+        output.className="error";output.textContent="❌ Invalid number or error: "+(data.error?.message||"Unknown error");
+      }
+    }catch(err){output.className="error";output.textContent="❌ Network error: "+err.message;}
+  });
+</script>
+</body>
+</html>
